@@ -1,0 +1,281 @@
+  TITLE: cfactor script
+
+  DATA:
+  	FILE IS "PNC_for_CFactor_MPLUS2.csv";
+
+  VARIABLE:
+    NAMES = bblid
+famid
+gaf001
+envSES
+envHouseholds
+neighborhoodCrime
+smry_man
+smry_dep
+smry_eat_cat
+smry_gad
+smry_sep
+smry_phb
+smry_soc
+smry_pan
+smry_agr
+smry_ocd
+smry_ptd
+smry_psy_cat
+smry_add
+smry_odd
+smry_con
+smry_prime_tot
+race
+ethnicity
+sex
+White_Black_Other
+Race_Black
+Race_White
+mprage_jlf_vol_ICV
+mprage_jlf_gmd_MeanGMD
+dti_jlf_fa_MeanFA
+pcaslMeanGMValue
+Psychosis_Resilient
+Psychosis_Emergent
+Psychopathology_Resilient
+Psychopathology_Emergent
+trauma_T1
+Fx_Checked_Strict
+AvgParentEducation
+PS_GO1
+cnbAgeMonths
+abf_ar_z
+att_ar_z
+wm_ar_z
+vmem_ar_z
+fmem_ar_z
+smem_ar_z
+lan_ar_z
+nvr_ar_z
+spa_ar_z
+eid_ar_z
+edi_ar_z
+adi_ar_z
+abf_s_ar_z
+att_s_ar_z
+wm_s_ar_z
+vmem_s_ar_z
+fmem_s_ar_z
+smem_s_ar_z
+lan_s_ar_z
+nvr_s_ar_z
+spa_s_ar_z
+eid_s_ar_z
+edi_s_ar_z
+adi_s_ar_z
+mot_s_ar_z
+sm_s_ar_z
+abf_ar_z_EFFICIENCY
+att_ar_z_EFFICIENCY
+wm_ar_z_EFFICIENCY
+vmem_ar_z_EFFICIENCY
+fmem_ar_z_EFFICIENCY
+smem_ar_z_EFFICIENCY
+lan_ar_z_EFFICIENCY
+nvr_ar_z_EFFICIENCY
+spa_ar_z_EFFICIENCY
+eid_ar_z_EFFICIENCY
+edi_ar_z_EFFICIENCY
+adi_ar_z_EFFICIENCY
+wrat_cr_std;
+
+      USEVARIABLES = 
+smry_man
+smry_dep
+smry_gad
+smry_sep
+smry_phb
+smry_soc
+smry_pan
+smry_agr
+smry_ocd
+smry_ptd
+smry_psy_cat
+smry_add
+smry_odd
+smry_con
+smry_prime_tot
+abf_ar_z_EFFICIENCY
+att_ar_z_EFFICIENCY
+wm_ar_z_EFFICIENCY
+vmem_ar_z_EFFICIENCY
+fmem_ar_z_EFFICIENCY
+smem_ar_z_EFFICIENCY
+lan_ar_z_EFFICIENCY
+nvr_ar_z_EFFICIENCY
+spa_ar_z_EFFICIENCY
+eid_ar_z_EFFICIENCY
+edi_ar_z_EFFICIENCY
+adi_ar_z_EFFICIENCY
+mot_s_ar_z
+sm_s_ar_z
+wrat_cr_std;
+
+CATEGORICAL=
+smry_man
+smry_dep
+smry_gad
+smry_sep
+smry_phb
+smry_soc
+smry_pan
+smry_agr
+smry_ocd
+smry_ptd
+smry_psy_cat
+smry_add
+smry_odd
+smry_con;
+
+MISSING=ALL(99999);
+
+IDVAR=bblid;
+
+DEFINE:
+STANDARDIZE wrat_cr_std smry_prime_tot;
+
+  ANALYSIS:
+   ESTIMATOR=wlsmv;
+   MODEL = NOCOVARIANCES;
+
+  MODEL:
+
+AnxiousMisery BY
+smry_dep* 
+smry_gad 
+smry_ocd
+smry_sep
+smry_pan
+smry_ptd;
+
+Psychosis BY
+smry_prime_tot*
+smry_psy_cat
+smry_man;
+
+Phobias BY
+smry_phb*
+smry_soc
+smry_agr;
+
+Externalizing BY
+smry_add*
+smry_odd 
+smry_con; 
+
+Complex BY
+abf_ar_z_EFFICIENCY*
+lan_ar_z_EFFICIENCY
+nvr_ar_z_EFFICIENCY
+spa_ar_z_EFFICIENCY
+wrat_cr_std;
+
+Executive BY
+att_ar_z_EFFICIENCY* (p1)
+wm_ar_z_EFFICIENCY (p1);
+
+Memory BY
+vmem_ar_z_EFFICIENCY*
+fmem_ar_z_EFFICIENCY
+smem_ar_z_EFFICIENCY;
+
+Social BY
+eid_ar_z_EFFICIENCY*
+edi_ar_z_EFFICIENCY
+adi_ar_z_EFFICIENCY;
+
+Motor BY
+mot_s_ar_z* (p2)
+sm_s_ar_z (p2);
+
+p_factor BY
+smry_dep*
+smry_gad
+smry_ocd
+smry_sep
+smry_pan
+smry_prime_tot
+smry_psy_cat
+smry_man
+smry_phb
+smry_soc
+smry_agr
+smry_add
+smry_odd
+smry_con
+smry_ptd;
+
+g_factor BY
+abf_ar_z_EFFICIENCY*
+att_ar_z_EFFICIENCY
+wm_ar_z_EFFICIENCY
+vmem_ar_z_EFFICIENCY
+fmem_ar_z_EFFICIENCY
+smem_ar_z_EFFICIENCY
+lan_ar_z_EFFICIENCY
+nvr_ar_z_EFFICIENCY
+spa_ar_z_EFFICIENCY
+eid_ar_z_EFFICIENCY
+edi_ar_z_EFFICIENCY
+adi_ar_z_EFFICIENCY
+mot_s_ar_z
+sm_s_ar_z
+wrat_cr_std;
+
+c_factor BY
+smry_dep*
+smry_gad
+smry_ocd
+smry_sep
+smry_pan
+smry_prime_tot
+smry_psy_cat
+smry_man
+smry_phb
+smry_soc
+smry_agr
+smry_add
+smry_odd
+smry_con
+smry_ptd
+abf_ar_z_EFFICIENCY
+att_ar_z_EFFICIENCY
+wm_ar_z_EFFICIENCY
+vmem_ar_z_EFFICIENCY
+fmem_ar_z_EFFICIENCY
+smem_ar_z_EFFICIENCY
+lan_ar_z_EFFICIENCY
+nvr_ar_z_EFFICIENCY
+spa_ar_z_EFFICIENCY
+eid_ar_z_EFFICIENCY
+edi_ar_z_EFFICIENCY
+adi_ar_z_EFFICIENCY
+mot_s_ar_z
+sm_s_ar_z
+wrat_cr_std;
+
+AnxiousMisery@1;
+Psychosis@1;
+Phobias@1;
+Externalizing@1;
+Complex@1;
+Executive@1;
+Memory@1;
+Social@1;
+Motor@1;
+p_factor@1;
+g_factor@1;
+c_factor@1;
+
+  OUTPUT:
+  STDYX;
+  !SAVEDATA:
+  !FILE IS "PNC_CFactor_scores_24June2024.dat";
+  !SAVE=FSCORES;
+  	

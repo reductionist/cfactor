@@ -1,0 +1,1068 @@
+Mplus VERSION 8.4
+MUTHEN & MUTHEN
+07/20/2024   2:44 PM
+
+INPUT INSTRUCTIONS
+
+    TITLE: cfactor script
+
+    DATA:
+    	FILE IS "PNC_for_CFactor_MPLUS2.csv";
+
+    VARIABLE:
+      NAMES = bblid
+  famid
+  gaf001
+  envSES
+  envHouseholds
+  neighborhoodCrime
+  smry_man
+  smry_dep
+  smry_eat_cat
+  smry_gad
+  smry_sep
+  smry_phb
+  smry_soc
+  smry_pan
+  smry_agr
+  smry_ocd
+  smry_ptd
+  smry_psy_cat
+  smry_add
+  smry_odd
+  smry_con
+  smry_prime_tot
+  race
+  ethnicity
+  sex
+  White_Black_Other
+  Race_Black
+  Race_White
+  mprage_jlf_vol_ICV
+  mprage_jlf_gmd_MeanGMD
+  dti_jlf_fa_MeanFA
+  pcaslMeanGMValue
+  Psychosis_Resilient
+  Psychosis_Emergent
+  Psychopathology_Resilient
+  Psychopathology_Emergent
+  trauma_T1
+  Fx_Checked_Strict
+  AvgParentEducation
+  PS_GO1
+  cnbAgeMonths
+  abf_ar_z
+  att_ar_z
+  wm_ar_z
+  vmem_ar_z
+  fmem_ar_z
+  smem_ar_z
+  lan_ar_z
+  nvr_ar_z
+  spa_ar_z
+  eid_ar_z
+  edi_ar_z
+  adi_ar_z
+  abf_s_ar_z
+  att_s_ar_z
+  wm_s_ar_z
+  vmem_s_ar_z
+  fmem_s_ar_z
+  smem_s_ar_z
+  lan_s_ar_z
+  nvr_s_ar_z
+  spa_s_ar_z
+  eid_s_ar_z
+  edi_s_ar_z
+  adi_s_ar_z
+  mot_s_ar_z
+  sm_s_ar_z
+  abf_ar_z_EFFICIENCY
+  att_ar_z_EFFICIENCY
+  wm_ar_z_EFFICIENCY
+  vmem_ar_z_EFFICIENCY
+  fmem_ar_z_EFFICIENCY
+  smem_ar_z_EFFICIENCY
+  lan_ar_z_EFFICIENCY
+  nvr_ar_z_EFFICIENCY
+  spa_ar_z_EFFICIENCY
+  eid_ar_z_EFFICIENCY
+  edi_ar_z_EFFICIENCY
+  adi_ar_z_EFFICIENCY
+  wrat_cr_std;
+
+        USEVARIABLES =
+  smry_man
+  smry_dep
+  smry_gad
+  smry_sep
+  smry_phb
+  smry_soc
+  smry_pan
+  smry_agr
+  smry_ocd
+  smry_ptd
+  smry_psy_cat
+  smry_add
+  smry_odd
+  smry_con
+  smry_prime_tot
+  abf_ar_z_EFFICIENCY
+  att_ar_z_EFFICIENCY
+  wm_ar_z_EFFICIENCY
+  vmem_ar_z_EFFICIENCY
+  fmem_ar_z_EFFICIENCY
+  smem_ar_z_EFFICIENCY
+  lan_ar_z_EFFICIENCY
+  nvr_ar_z_EFFICIENCY
+  spa_ar_z_EFFICIENCY
+  eid_ar_z_EFFICIENCY
+  edi_ar_z_EFFICIENCY
+  adi_ar_z_EFFICIENCY
+  mot_s_ar_z
+  sm_s_ar_z
+  wrat_cr_std;
+
+  CATEGORICAL=
+  smry_man
+  smry_dep
+  smry_gad
+  smry_sep
+  smry_phb
+  smry_soc
+  smry_pan
+  smry_agr
+  smry_ocd
+  smry_ptd
+  smry_psy_cat
+  smry_add
+  smry_odd
+  smry_con;
+
+  MISSING=ALL(99999);
+
+  IDVAR=bblid;
+
+  DEFINE:
+  STANDARDIZE wrat_cr_std smry_prime_tot;
+
+    ANALYSIS:
+     ESTIMATOR=wlsmv;
+     MODEL = NOCOVARIANCES;
+
+    MODEL:
+
+  AnxiousMisery BY
+  smry_dep*
+  smry_gad
+  smry_ocd
+  smry_sep
+  smry_pan
+  smry_ptd;
+
+  Psychosis BY
+  smry_prime_tot*
+  smry_psy_cat
+  smry_man;
+
+  Phobias BY
+  smry_phb*
+  smry_soc
+  smry_agr;
+
+  Externalizing BY
+  smry_add*
+  smry_odd
+  smry_con;
+
+  Complex BY
+  abf_ar_z_EFFICIENCY*
+  lan_ar_z_EFFICIENCY
+  nvr_ar_z_EFFICIENCY
+  spa_ar_z_EFFICIENCY
+  wrat_cr_std;
+
+  Executive BY
+  att_ar_z_EFFICIENCY* (p1)
+  wm_ar_z_EFFICIENCY (p1);
+
+  Memory BY
+  vmem_ar_z_EFFICIENCY*
+  fmem_ar_z_EFFICIENCY
+  smem_ar_z_EFFICIENCY;
+
+  Social BY
+  eid_ar_z_EFFICIENCY*
+  edi_ar_z_EFFICIENCY
+  adi_ar_z_EFFICIENCY;
+
+  Motor BY
+  mot_s_ar_z* (p2)
+  sm_s_ar_z (p2);
+
+  p_factor BY
+  smry_dep*
+  smry_gad
+  smry_ocd
+  smry_sep
+  smry_pan
+  smry_prime_tot
+  smry_psy_cat
+  smry_man
+  smry_phb
+  smry_soc
+  smry_agr
+  smry_add
+  smry_odd
+  smry_con
+  smry_ptd;
+
+  g_factor BY
+  abf_ar_z_EFFICIENCY*
+  att_ar_z_EFFICIENCY
+  wm_ar_z_EFFICIENCY
+  vmem_ar_z_EFFICIENCY
+  fmem_ar_z_EFFICIENCY
+  smem_ar_z_EFFICIENCY
+  lan_ar_z_EFFICIENCY
+  nvr_ar_z_EFFICIENCY
+  spa_ar_z_EFFICIENCY
+  eid_ar_z_EFFICIENCY
+  edi_ar_z_EFFICIENCY
+  adi_ar_z_EFFICIENCY
+  mot_s_ar_z
+  sm_s_ar_z
+  wrat_cr_std;
+
+  c_factor BY
+  smry_dep*
+  smry_gad
+  smry_ocd
+  smry_sep
+  smry_pan
+  smry_prime_tot
+  smry_psy_cat
+  smry_man
+  smry_phb
+  smry_soc
+  smry_agr
+  smry_add
+  smry_odd
+  smry_con
+  smry_ptd
+  abf_ar_z_EFFICIENCY
+  att_ar_z_EFFICIENCY
+  wm_ar_z_EFFICIENCY
+  vmem_ar_z_EFFICIENCY
+  fmem_ar_z_EFFICIENCY
+  smem_ar_z_EFFICIENCY
+  lan_ar_z_EFFICIENCY
+  nvr_ar_z_EFFICIENCY
+  spa_ar_z_EFFICIENCY
+  eid_ar_z_EFFICIENCY
+  edi_ar_z_EFFICIENCY
+  adi_ar_z_EFFICIENCY
+  mot_s_ar_z
+  sm_s_ar_z
+  wrat_cr_std;
+
+  AnxiousMisery@1;
+  Psychosis@1;
+  Phobias@1;
+  Externalizing@1;
+  Complex@1;
+  Executive@1;
+  Memory@1;
+  Social@1;
+  Motor@1;
+  p_factor@1;
+  g_factor@1;
+  c_factor@1;
+
+    OUTPUT:
+    STDYX;
+    !SAVEDATA:
+    !FILE IS "PNC_CFactor_scores_24June2024.dat";
+    !SAVE=FSCORES;
+    	
+
+
+
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+cfactor script
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        9498
+
+Number of dependent variables                                   30
+Number of independent variables                                  0
+Number of continuous latent variables                           12
+
+Observed dependent variables
+
+  Continuous
+   SMRY_PRIME  ABF_AR_Z_E  ATT_AR_Z_E  WM_AR_Z_EF  VMEM_AR_Z_  FMEM_AR_Z_
+   SMEM_AR_Z_  LAN_AR_Z_E  NVR_AR_Z_E  SPA_AR_Z_E  EID_AR_Z_E  EDI_AR_Z_E
+   ADI_AR_Z_E  MOT_S_AR_Z  SM_S_AR_Z   WRAT_CR_ST
+
+  Binary and ordered categorical (ordinal)
+   SMRY_MAN    SMRY_DEP    SMRY_GAD    SMRY_SEP    SMRY_PHB    SMRY_SOC
+   SMRY_PAN    SMRY_AGR    SMRY_OCD    SMRY_PTD    SMRY_PSY    SMRY_ADD
+   SMRY_ODD    SMRY_CON
+
+Continuous latent variables
+   ANXIOUSM    PSYCHOSI    PHOBIAS     EXTERNAL    COMPLEX     EXECUTIV
+   MEMORY      SOCIAL      MOTOR       P_FACTOR    G_FACTOR    C_FACTOR
+
+Variables with special functions
+
+  ID variable           BBLID
+
+Estimator                                                    WLSMV
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Parameterization                                             DELTA
+Link                                                        PROBIT
+
+Input data file(s)
+  PNC_for_CFactor_MPLUS2.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns           206
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              SMRY_MAN      SMRY_DEP      SMRY_GAD      SMRY_SEP      SMRY_PHB
+              ________      ________      ________      ________      ________
+ SMRY_MAN       0.991
+ SMRY_DEP       0.991         0.991
+ SMRY_GAD       0.991         0.991         0.991
+ SMRY_SEP       0.991         0.991         0.991         0.991
+ SMRY_PHB       0.991         0.991         0.991         0.991         0.991
+ SMRY_SOC       0.991         0.991         0.991         0.991         0.991
+ SMRY_PAN       0.991         0.991         0.991         0.991         0.991
+ SMRY_AGR       0.991         0.991         0.991         0.991         0.991
+ SMRY_OCD       0.991         0.991         0.991         0.991         0.991
+ SMRY_PTD       0.991         0.991         0.991         0.991         0.991
+ SMRY_PSY       0.991         0.991         0.991         0.991         0.991
+ SMRY_ADD       0.991         0.991         0.991         0.991         0.991
+ SMRY_ODD       0.991         0.991         0.991         0.991         0.991
+ SMRY_CON       0.991         0.991         0.991         0.991         0.991
+ SMRY_PRI       0.991         0.991         0.991         0.991         0.991
+ ABF_AR_Z       0.972         0.972         0.972         0.972         0.972
+ ATT_AR_Z       0.968         0.968         0.968         0.968         0.968
+ WM_AR_Z_       0.952         0.952         0.952         0.952         0.952
+ VMEM_AR_       0.976         0.976         0.976         0.976         0.976
+ FMEM_AR_       0.972         0.972         0.972         0.972         0.972
+ SMEM_AR_       0.969         0.969         0.969         0.969         0.969
+ LAN_AR_Z       0.972         0.972         0.972         0.972         0.972
+ NVR_AR_Z       0.972         0.972         0.972         0.972         0.972
+ SPA_AR_Z       0.932         0.932         0.932         0.932         0.932
+ EID_AR_Z       0.983         0.983         0.983         0.983         0.983
+ EDI_AR_Z       0.974         0.974         0.974         0.974         0.974
+ ADI_AR_Z       0.968         0.968         0.968         0.968         0.968
+ MOT_S_AR       0.963         0.963         0.963         0.963         0.963
+ SM_S_AR_       0.988         0.988         0.988         0.988         0.988
+ WRAT_CR_       0.989         0.989         0.989         0.989         0.989
+
+
+           Covariance Coverage
+              SMRY_SOC      SMRY_PAN      SMRY_AGR      SMRY_OCD      SMRY_PTD
+              ________      ________      ________      ________      ________
+ SMRY_SOC       0.991
+ SMRY_PAN       0.991         0.991
+ SMRY_AGR       0.991         0.991         0.991
+ SMRY_OCD       0.991         0.991         0.991         0.991
+ SMRY_PTD       0.991         0.991         0.991         0.991         0.991
+ SMRY_PSY       0.991         0.991         0.991         0.991         0.991
+ SMRY_ADD       0.991         0.991         0.991         0.991         0.991
+ SMRY_ODD       0.991         0.991         0.991         0.991         0.991
+ SMRY_CON       0.991         0.991         0.991         0.991         0.991
+ SMRY_PRI       0.991         0.991         0.991         0.991         0.991
+ ABF_AR_Z       0.972         0.972         0.972         0.972         0.972
+ ATT_AR_Z       0.968         0.968         0.968         0.968         0.968
+ WM_AR_Z_       0.952         0.952         0.952         0.952         0.952
+ VMEM_AR_       0.976         0.976         0.976         0.976         0.976
+ FMEM_AR_       0.972         0.972         0.972         0.972         0.972
+ SMEM_AR_       0.969         0.969         0.969         0.969         0.969
+ LAN_AR_Z       0.972         0.972         0.972         0.972         0.972
+ NVR_AR_Z       0.972         0.972         0.972         0.972         0.972
+ SPA_AR_Z       0.932         0.932         0.932         0.932         0.932
+ EID_AR_Z       0.983         0.983         0.983         0.983         0.983
+ EDI_AR_Z       0.974         0.974         0.974         0.974         0.974
+ ADI_AR_Z       0.968         0.968         0.968         0.968         0.968
+ MOT_S_AR       0.963         0.963         0.963         0.963         0.963
+ SM_S_AR_       0.988         0.988         0.988         0.988         0.988
+ WRAT_CR_       0.989         0.989         0.989         0.989         0.989
+
+
+           Covariance Coverage
+              SMRY_PSY      SMRY_ADD      SMRY_ODD      SMRY_CON      SMRY_PRI
+              ________      ________      ________      ________      ________
+ SMRY_PSY       0.991
+ SMRY_ADD       0.991         0.991
+ SMRY_ODD       0.991         0.991         0.991
+ SMRY_CON       0.991         0.991         0.991         0.991
+ SMRY_PRI       0.991         0.991         0.991         0.991         0.991
+ ABF_AR_Z       0.972         0.972         0.972         0.972         0.972
+ ATT_AR_Z       0.968         0.968         0.968         0.968         0.968
+ WM_AR_Z_       0.952         0.952         0.952         0.952         0.952
+ VMEM_AR_       0.976         0.976         0.976         0.976         0.976
+ FMEM_AR_       0.972         0.972         0.972         0.972         0.972
+ SMEM_AR_       0.969         0.969         0.969         0.969         0.969
+ LAN_AR_Z       0.972         0.972         0.972         0.972         0.972
+ NVR_AR_Z       0.972         0.972         0.972         0.972         0.972
+ SPA_AR_Z       0.932         0.932         0.932         0.932         0.932
+ EID_AR_Z       0.983         0.983         0.983         0.983         0.983
+ EDI_AR_Z       0.974         0.974         0.974         0.974         0.974
+ ADI_AR_Z       0.968         0.968         0.968         0.968         0.968
+ MOT_S_AR       0.963         0.963         0.963         0.963         0.963
+ SM_S_AR_       0.988         0.988         0.988         0.988         0.988
+ WRAT_CR_       0.989         0.989         0.989         0.989         0.989
+
+
+           Covariance Coverage
+              ABF_AR_Z      ATT_AR_Z      WM_AR_Z_      VMEM_AR_      FMEM_AR_
+              ________      ________      ________      ________      ________
+ ABF_AR_Z       0.978
+ ATT_AR_Z       0.963         0.975
+ WM_AR_Z_       0.952         0.947         0.958
+ VMEM_AR_       0.973         0.967         0.955         0.982
+ FMEM_AR_       0.971         0.965         0.952         0.976         0.979
+ SMEM_AR_       0.969         0.960         0.950         0.971         0.969
+ LAN_AR_Z       0.971         0.962         0.951         0.973         0.969
+ NVR_AR_Z       0.972         0.962         0.952         0.973         0.970
+ SPA_AR_Z       0.932         0.925         0.917         0.934         0.931
+ EID_AR_Z       0.976         0.974         0.957         0.981         0.977
+ EDI_AR_Z       0.975         0.965         0.954         0.976         0.973
+ ADI_AR_Z       0.968         0.959         0.948         0.970         0.967
+ MOT_S_AR       0.962         0.953         0.943         0.964         0.960
+ SM_S_AR_       0.977         0.974         0.957         0.982         0.978
+ WRAT_CR_       0.976         0.974         0.957         0.981         0.977
+
+
+           Covariance Coverage
+              SMEM_AR_      LAN_AR_Z      NVR_AR_Z      SPA_AR_Z      EID_AR_Z
+              ________      ________      ________      ________      ________
+ SMEM_AR_       0.974
+ LAN_AR_Z       0.970         0.977
+ NVR_AR_Z       0.969         0.972         0.977
+ SPA_AR_Z       0.931         0.933         0.933         0.936
+ EID_AR_Z       0.973         0.976         0.976         0.935         0.991
+ EDI_AR_Z       0.971         0.974         0.974         0.935         0.979
+ ADI_AR_Z       0.967         0.969         0.968         0.931         0.971
+ MOT_S_AR       0.960         0.962         0.963         0.925         0.966
+ SM_S_AR_       0.973         0.976         0.976         0.935         0.990
+ WRAT_CR_       0.973         0.975         0.976         0.935         0.990
+
+
+           Covariance Coverage
+              EDI_AR_Z      ADI_AR_Z      MOT_S_AR      SM_S_AR_      WRAT_CR_
+              ________      ________      ________      ________      ________
+ EDI_AR_Z       0.980
+ ADI_AR_Z       0.971         0.973
+ MOT_S_AR       0.965         0.959         0.968
+ SM_S_AR_       0.979         0.972         0.967         0.997
+ WRAT_CR_       0.979         0.971         0.966         0.995         0.998
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    SMRY_MAN
+      Category 1    0.993         9349.000
+      Category 2    0.007           62.000
+    SMRY_DEP
+      Category 1    0.879         8268.000
+      Category 2    0.121         1143.000
+    SMRY_GAD
+      Category 1    0.973         9161.000
+      Category 2    0.027          250.000
+    SMRY_SEP
+      Category 1    0.948         8923.000
+      Category 2    0.052          488.000
+    SMRY_PHB
+      Category 1    0.669         6297.000
+      Category 2    0.331         3114.000
+    SMRY_SOC
+      Category 1    0.792         7453.000
+      Category 2    0.208         1958.000
+    SMRY_PAN
+      Category 1    0.987         9288.000
+      Category 2    0.013          123.000
+    SMRY_AGR
+      Category 1    0.951         8947.000
+      Category 2    0.049          464.000
+    SMRY_OCD
+      Category 1    0.973         9155.000
+      Category 2    0.027          256.000
+    SMRY_PTD
+      Category 1    0.894         8414.000
+      Category 2    0.106          997.000
+    SMRY_PSY
+      Category 1    0.960         9032.000
+      Category 2    0.040          379.000
+    SMRY_ADD
+      Category 1    0.823         7746.000
+      Category 2    0.177         1665.000
+    SMRY_ODD
+      Category 1    0.702         6607.000
+      Category 2    0.298         2804.000
+    SMRY_CON
+      Category 1    0.939         8838.000
+      Category 2    0.061          573.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     SMRY_PRIME_TOT        0.000       2.033      -0.563   63.23%      -0.563     -0.563     -0.563
+            9411.000       1.000       3.817       5.526    0.01%      -0.563      0.535
+     ABF_AR_Z_EFFICI      -0.003      -1.205      -6.027    0.01%      -0.724     -0.106      0.135
+            9286.000       0.994       3.096       2.349    0.01%       0.363      0.817
+     ATT_AR_Z_EFFICI       0.035      -1.031      -6.977    0.01%      -0.657     -0.047      0.183
+            9262.000       1.013       2.541       4.382    0.01%       0.386      0.807
+     WM_AR_Z_EFFICIE       0.005      -1.357      -6.707    0.01%      -0.664     -0.026      0.203
+            9103.000       1.034       3.433       2.683    0.01%       0.397      0.782
+     VMEM_AR_Z_EFFIC       0.000      -1.638      -6.955    0.01%      -0.668     -0.026      0.211
+            9331.000       1.029       4.718       2.414    0.01%       0.413      0.789
+     FMEM_AR_Z_EFFIC      -0.026      -0.840      -5.915    0.01%      -0.775     -0.172      0.076
+            9297.000       1.001       1.703       2.806    0.01%       0.311      0.809
+     SMEM_AR_Z_EFFIC      -0.018      -0.962      -6.560    0.01%      -0.758     -0.150      0.087
+            9252.000       1.001       2.342       2.482    0.01%       0.310      0.817
+     LAN_AR_Z_EFFICI      -0.005      -1.108      -5.424    0.01%      -0.716     -0.082      0.177
+            9276.000       1.010       2.178       2.810    0.01%       0.382      0.807
+     NVR_AR_Z_EFFICI      -0.009      -1.047      -6.987    0.01%      -0.677     -0.119      0.080
+            9280.000       0.976       3.074       2.784    0.01%       0.293      0.769
+     SPA_AR_Z_EFFICI      -0.004      -1.035      -6.594    0.01%      -0.714     -0.136      0.091
+            8893.000       0.999       3.162       2.776    0.01%       0.311      0.792
+     EID_AR_Z_EFFICI      -0.041      -1.390      -8.096    0.01%      -0.712     -0.104      0.120
+            9414.000       1.013       4.037       2.614    0.01%       0.323      0.739
+     EDI_AR_Z_EFFICI      -0.039      -0.752      -5.927    0.01%      -0.809     -0.166      0.067
+            9308.000       1.000       1.297       2.776    0.01%       0.300      0.796
+     ADI_AR_Z_EFFICI      -0.026      -0.981      -6.534    0.01%      -0.749     -0.132      0.101
+            9237.000       1.012       1.931       2.442    0.01%       0.332      0.801
+     MOT_S_AR_Z            0.003      -0.425      -6.234    0.01%      -0.743     -0.188      0.044
+            9192.000       0.993       2.086       6.042    0.01%       0.265      0.770
+     SM_S_AR_Z            -0.009      -1.597      -6.729    0.01%      -0.677     -0.067      0.167
+            9468.000       1.031       5.227       2.466    0.01%       0.374      0.792
+     WRAT_CR_STD           0.000       0.465      -2.871    0.16%      -0.789     -0.299     -0.055
+            9476.000       1.000       0.498       2.639    3.24%       0.190      0.741
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                      134
+
+Chi-Square Test of Model Fit
+
+          Value                           1858.159*
+          Degrees of Freedom                   347
+          P-Value                           0.0000
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.021
+          90 Percent C.I.                    0.020  0.022
+          Probability RMSEA <= .05           1.000
+
+CFI/TLI
+
+          CFI                                0.978
+          TLI                                0.972
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                          68064.567
+          Degrees of Freedom                   435
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.030
+
+Optimum Function Value for Weighted Least-Squares Estimator
+
+          Value                     0.81279722D-01
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ ANXIOUSM BY
+    SMRY_DEP           0.353      0.042      8.356      0.000
+    SMRY_GAD           0.623      0.072      8.711      0.000
+    SMRY_OCD           0.296      0.057      5.219      0.000
+    SMRY_SEP           0.340      0.054      6.288      0.000
+    SMRY_PAN           0.350      0.082      4.295      0.000
+    SMRY_PTD           0.175      0.044      3.944      0.000
+
+ PSYCHOSI BY
+    SMRY_PRIME         0.344      0.274      1.258      0.208
+    SMRY_PSY_C         0.270      0.212      1.272      0.203
+    SMRY_MAN          -0.157      0.157     -0.996      0.319
+
+ PHOBIAS  BY
+    SMRY_PHB           0.411      0.062      6.619      0.000
+    SMRY_SOC           0.305      0.048      6.339      0.000
+    SMRY_AGR           0.334      0.056      5.914      0.000
+
+ EXTERNAL BY
+    SMRY_ADD           0.401      0.029     13.953      0.000
+    SMRY_ODD           0.814      0.047     17.279      0.000
+    SMRY_CON           0.510      0.036     14.150      0.000
+
+ COMPLEX  BY
+    ABF_AR_Z_E         0.245      0.020     12.124      0.000
+    LAN_AR_Z_E        -0.086      0.025     -3.462      0.001
+    NVR_AR_Z_E         0.292      0.023     12.935      0.000
+    SPA_AR_Z_E         0.222      0.019     11.926      0.000
+    WRAT_CR_ST        -0.211      0.033     -6.462      0.000
+
+ EXECUTIV BY
+    ATT_AR_Z_E         0.418      0.009     46.363      0.000
+    WM_AR_Z_EF         0.418      0.009     46.363      0.000
+
+ MEMORY   BY
+    VMEM_AR_Z_         0.276      0.019     14.744      0.000
+    FMEM_AR_Z_         0.329      0.021     15.680      0.000
+    SMEM_AR_Z_         0.358      0.022     16.001      0.000
+
+ SOCIAL   BY
+    EID_AR_Z_E         0.141      0.013     10.883      0.000
+    EDI_AR_Z_E         0.583      0.036     16.333      0.000
+    ADI_AR_Z_E         0.400      0.027     15.005      0.000
+
+ MOTOR    BY
+    MOT_S_AR_Z         0.354      0.011     31.738      0.000
+    SM_S_AR_Z          0.354      0.011     31.738      0.000
+
+ P_FACTOR BY
+    SMRY_DEP           0.707      0.020     35.536      0.000
+    SMRY_GAD           0.482      0.034     14.097      0.000
+    SMRY_OCD           0.620      0.030     21.010      0.000
+    SMRY_SEP           0.366      0.030     12.325      0.000
+    SMRY_PAN           0.558      0.041     13.535      0.000
+    SMRY_PRIME         0.406      0.013     31.284      0.000
+    SMRY_PSY_C         0.625      0.026     24.477      0.000
+    SMRY_MAN           0.596      0.050     11.949      0.000
+    SMRY_PHB           0.386      0.019     20.096      0.000
+    SMRY_SOC           0.517      0.019     27.200      0.000
+    SMRY_AGR           0.618      0.024     25.769      0.000
+    SMRY_ADD           0.263      0.022     12.215      0.000
+    SMRY_ODD           0.520      0.017     30.197      0.000
+    SMRY_CON           0.454      0.025     18.443      0.000
+    SMRY_PTD           0.533      0.022     23.848      0.000
+
+ G_FACTOR BY
+    ABF_AR_Z_E         0.229      0.024      9.738      0.000
+    ATT_AR_Z_E         0.333      0.017     20.139      0.000
+    WM_AR_Z_EF         0.240      0.021     11.337      0.000
+    VMEM_AR_Z_         0.512      0.016     32.561      0.000
+    FMEM_AR_Z_         0.574      0.015     37.119      0.000
+    SMEM_AR_Z_         0.441      0.016     28.216      0.000
+    LAN_AR_Z_E         0.237      0.035      6.820      0.000
+    NVR_AR_Z_E         0.251      0.026      9.664      0.000
+    SPA_AR_Z_E         0.279      0.024     11.823      0.000
+    EID_AR_Z_E         0.585      0.017     34.993      0.000
+    EDI_AR_Z_E         0.420      0.025     17.101      0.000
+    ADI_AR_Z_E         0.457      0.017     26.531      0.000
+    MOT_S_AR_Z         0.280      0.016     17.383      0.000
+    SM_S_AR_Z          0.508      0.013     38.103      0.000
+    WRAT_CR_ST         0.063      0.034      1.834      0.067
+
+ C_FACTOR BY
+    SMRY_DEP          -0.029      0.022     -1.344      0.179
+    SMRY_GAD          -0.010      0.034     -0.291      0.771
+    SMRY_OCD          -0.004      0.034     -0.125      0.900
+    SMRY_SEP          -0.039      0.028     -1.432      0.152
+    SMRY_PAN           0.031      0.046      0.674      0.500
+    SMRY_PRIME         0.169      0.013     13.379      0.000
+    SMRY_PSY_C         0.156      0.030      5.239      0.000
+    SMRY_MAN           0.133      0.056      2.386      0.017
+    SMRY_PHB           0.044      0.017      2.590      0.010
+    SMRY_SOC           0.167      0.018      9.226      0.000
+    SMRY_AGR           0.245      0.026      9.236      0.000
+    SMRY_ADD           0.211      0.018     11.549      0.000
+    SMRY_ODD           0.246      0.016     15.409      0.000
+    SMRY_CON           0.308      0.024     12.953      0.000
+    SMRY_PTD           0.176      0.022      8.139      0.000
+    ABF_AR_Z_E        -0.453      0.016    -28.497      0.000
+    ATT_AR_Z_E        -0.260      0.018    -14.067      0.000
+    WM_AR_Z_EF        -0.399      0.015    -27.380      0.000
+    VMEM_AR_Z_        -0.234      0.025     -9.220      0.000
+    FMEM_AR_Z_        -0.202      0.028     -7.086      0.000
+    SMEM_AR_Z_        -0.188      0.023     -8.048      0.000
+    LAN_AR_Z_E        -0.740      0.016    -46.520      0.000
+    NVR_AR_Z_E        -0.515      0.017    -30.104      0.000
+    SPA_AR_Z_E        -0.461      0.017    -27.123      0.000
+    EID_AR_Z_E        -0.292      0.028    -10.414      0.000
+    EDI_AR_Z_E        -0.483      0.022    -22.250      0.000
+    ADI_AR_Z_E        -0.263      0.024    -11.157      0.000
+    MOT_S_AR_Z        -0.219      0.017    -12.995      0.000
+    SM_S_AR_Z         -0.148      0.025     -5.823      0.000
+    WRAT_CR_ST        -0.698      0.016    -44.716      0.000
+
+ Intercepts
+    SMRY_PRIME         0.000      0.019      0.000      1.000
+    ABF_AR_Z_E        -0.003      0.012     -0.231      0.817
+    ATT_AR_Z_E         0.035      0.012      2.891      0.004
+    WM_AR_Z_EF         0.005      0.013      0.357      0.721
+    VMEM_AR_Z_         0.000      0.014      0.022      0.983
+    FMEM_AR_Z_        -0.026      0.012     -2.256      0.024
+    SMEM_AR_Z_        -0.018      0.012     -1.531      0.126
+    LAN_AR_Z_E        -0.005      0.012     -0.440      0.660
+    NVR_AR_Z_E        -0.009      0.012     -0.813      0.416
+    SPA_AR_Z_E        -0.004      0.012     -0.316      0.752
+    EID_AR_Z_E        -0.041      0.013     -3.285      0.001
+    EDI_AR_Z_E        -0.039      0.011     -3.383      0.001
+    ADI_AR_Z_E        -0.026      0.012     -2.153      0.031
+    MOT_S_AR_Z         0.003      0.011      0.243      0.808
+    SM_S_AR_Z         -0.009      0.013     -0.656      0.512
+    WRAT_CR_ST         0.000      0.011      0.000      1.000
+
+ Thresholds
+    SMRY_MAN$1         2.479      0.045     54.906      0.000
+    SMRY_DEP$1         1.168      0.017     69.965      0.000
+    SMRY_GAD$1         1.934      0.027     71.738      0.000
+    SMRY_SEP$1         1.627      0.022     75.581      0.000
+    SMRY_PHB$1         0.437      0.013     32.698      0.000
+    SMRY_SOC$1         0.813      0.015     55.704      0.000
+    SMRY_PAN$1         2.224      0.035     63.890      0.000
+    SMRY_AGR$1         1.652      0.022     75.478      0.000
+    SMRY_OCD$1         1.924      0.027     71.950      0.000
+    SMRY_PTD$1         1.248      0.017     72.018      0.000
+    SMRY_PSY$1         1.748      0.023     74.720      0.000
+    SMRY_ADD$1         0.927      0.015     61.180      0.000
+    SMRY_ODD$1         0.530      0.014     38.988      0.000
+    SMRY_CON$1         1.547      0.020     75.644      0.000
+
+ Variances
+    ANXIOUSMIS         1.000      0.000    999.000    999.000
+    PSYCHOSIS          1.000      0.000    999.000    999.000
+    PHOBIAS            1.000      0.000    999.000    999.000
+    EXTERNALIZ         1.000      0.000    999.000    999.000
+    COMPLEX            1.000      0.000    999.000    999.000
+    EXECUTIVE          1.000      0.000    999.000    999.000
+    MEMORY             1.000      0.000    999.000    999.000
+    SOCIAL             1.000      0.000    999.000    999.000
+    MOTOR              1.000      0.000    999.000    999.000
+    P_FACTOR           1.000      0.000    999.000    999.000
+    G_FACTOR           1.000      0.000    999.000    999.000
+    C_FACTOR           1.000      0.000    999.000    999.000
+
+ Residual Variances
+    SMRY_PRIME         0.688      0.188      3.652      0.000
+    ABF_AR_Z_E         0.676      0.012     58.568      0.000
+    ATT_AR_Z_E         0.660      0.011     61.753      0.000
+    WM_AR_Z_EF         0.642      0.010     62.884      0.000
+    VMEM_AR_Z_         0.635      0.010     62.988      0.000
+    FMEM_AR_Z_         0.523      0.012     43.623      0.000
+    SMEM_AR_Z_         0.642      0.014     45.741      0.000
+    LAN_AR_Z_E         0.399      0.013     29.840      0.000
+    NVR_AR_Z_E         0.563      0.013     41.948      0.000
+    SPA_AR_Z_E         0.660      0.011     62.762      0.000
+    EID_AR_Z_E         0.566      0.009     61.399      0.000
+    EDI_AR_Z_E         0.250      0.040      6.223      0.000
+    ADI_AR_Z_E         0.574      0.019     30.417      0.000
+    MOT_S_AR_Z         0.742      0.011     68.683      0.000
+    SM_S_AR_Z          0.625      0.012     50.714      0.000
+    WRAT_CR_ST         0.464      0.023     20.388      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ ANXIOUSM BY
+    SMRY_DEP           0.353      0.042      8.356      0.000
+    SMRY_GAD           0.623      0.072      8.711      0.000
+    SMRY_OCD           0.296      0.057      5.219      0.000
+    SMRY_SEP           0.340      0.054      6.288      0.000
+    SMRY_PAN           0.350      0.082      4.295      0.000
+    SMRY_PTD           0.175      0.044      3.944      0.000
+
+ PSYCHOSI BY
+    SMRY_PRIME         0.344      0.274      1.258      0.208
+    SMRY_PSY_C         0.270      0.212      1.272      0.203
+    SMRY_MAN          -0.157      0.157     -0.996      0.319
+
+ PHOBIAS  BY
+    SMRY_PHB           0.411      0.062      6.619      0.000
+    SMRY_SOC           0.305      0.048      6.339      0.000
+    SMRY_AGR           0.334      0.056      5.914      0.000
+
+ EXTERNAL BY
+    SMRY_ADD           0.401      0.029     13.953      0.000
+    SMRY_ODD           0.814      0.047     17.279      0.000
+    SMRY_CON           0.510      0.036     14.150      0.000
+
+ COMPLEX  BY
+    ABF_AR_Z_E         0.246      0.020     12.189      0.000
+    LAN_AR_Z_E        -0.086      0.025     -3.457      0.001
+    NVR_AR_Z_E         0.295      0.023     12.987      0.000
+    SPA_AR_Z_E         0.222      0.019     11.979      0.000
+    WRAT_CR_ST        -0.211      0.033     -6.465      0.000
+
+ EXECUTIV BY
+    ATT_AR_Z_E         0.415      0.009     47.649      0.000
+    WM_AR_Z_EF         0.411      0.009     47.698      0.000
+
+ MEMORY   BY
+    VMEM_AR_Z_         0.272      0.018     14.828      0.000
+    FMEM_AR_Z_         0.329      0.021     15.787      0.000
+    SMEM_AR_Z_         0.358      0.022     16.135      0.000
+
+ SOCIAL   BY
+    EID_AR_Z_E         0.140      0.013     10.910      0.000
+    EDI_AR_Z_E         0.583      0.035     16.451      0.000
+    ADI_AR_Z_E         0.398      0.026     15.117      0.000
+
+ MOTOR    BY
+    MOT_S_AR_Z         0.355      0.011     32.090      0.000
+    SM_S_AR_Z          0.349      0.011     31.809      0.000
+
+ P_FACTOR BY
+    SMRY_DEP           0.707      0.020     35.536      0.000
+    SMRY_GAD           0.482      0.034     14.097      0.000
+    SMRY_OCD           0.620      0.030     21.010      0.000
+    SMRY_SEP           0.366      0.030     12.325      0.000
+    SMRY_PAN           0.558      0.041     13.535      0.000
+    SMRY_PRIME         0.406      0.012     34.030      0.000
+    SMRY_PSY_C         0.625      0.026     24.477      0.000
+    SMRY_MAN           0.596      0.050     11.949      0.000
+    SMRY_PHB           0.386      0.019     20.096      0.000
+    SMRY_SOC           0.517      0.019     27.200      0.000
+    SMRY_AGR           0.618      0.024     25.769      0.000
+    SMRY_ADD           0.263      0.022     12.215      0.000
+    SMRY_ODD           0.520      0.017     30.197      0.000
+    SMRY_CON           0.454      0.025     18.443      0.000
+    SMRY_PTD           0.533      0.022     23.848      0.000
+
+ G_FACTOR BY
+    ABF_AR_Z_E         0.230      0.023      9.774      0.000
+    ATT_AR_Z_E         0.331      0.016     20.520      0.000
+    WM_AR_Z_EF         0.236      0.021     11.405      0.000
+    VMEM_AR_Z_         0.505      0.015     33.669      0.000
+    FMEM_AR_Z_         0.574      0.015     39.106      0.000
+    SMEM_AR_Z_         0.441      0.015     29.165      0.000
+    LAN_AR_Z_E         0.236      0.035      6.825      0.000
+    NVR_AR_Z_E         0.254      0.026      9.681      0.000
+    SPA_AR_Z_E         0.279      0.024     11.865      0.000
+    EID_AR_Z_E         0.581      0.016     36.141      0.000
+    EDI_AR_Z_E         0.420      0.024     17.287      0.000
+    ADI_AR_Z_E         0.454      0.017     27.403      0.000
+    MOT_S_AR_Z         0.281      0.016     17.580      0.000
+    SM_S_AR_Z          0.501      0.013     39.799      0.000
+    WRAT_CR_ST         0.063      0.034      1.835      0.067
+
+ C_FACTOR BY
+    SMRY_DEP          -0.029      0.022     -1.344      0.179
+    SMRY_GAD          -0.010      0.034     -0.291      0.771
+    SMRY_OCD          -0.004      0.034     -0.125      0.900
+    SMRY_SEP          -0.039      0.028     -1.432      0.152
+    SMRY_PAN           0.031      0.046      0.674      0.500
+    SMRY_PRIME         0.169      0.012     13.588      0.000
+    SMRY_PSY_C         0.156      0.030      5.239      0.000
+    SMRY_MAN           0.133      0.056      2.386      0.017
+    SMRY_PHB           0.044      0.017      2.590      0.010
+    SMRY_SOC           0.167      0.018      9.226      0.000
+    SMRY_AGR           0.245      0.026      9.236      0.000
+    SMRY_ADD           0.211      0.018     11.549      0.000
+    SMRY_ODD           0.246      0.016     15.409      0.000
+    SMRY_CON           0.308      0.024     12.953      0.000
+    SMRY_PTD           0.176      0.022      8.139      0.000
+    ABF_AR_Z_E        -0.454      0.015    -29.380      0.000
+    ATT_AR_Z_E        -0.258      0.018    -14.170      0.000
+    WM_AR_Z_EF        -0.393      0.014    -28.196      0.000
+    VMEM_AR_Z_        -0.231      0.025     -9.254      0.000
+    FMEM_AR_Z_        -0.201      0.028     -7.107      0.000
+    SMEM_AR_Z_        -0.188      0.023     -8.069      0.000
+    LAN_AR_Z_E        -0.736      0.015    -50.583      0.000
+    NVR_AR_Z_E        -0.521      0.017    -31.081      0.000
+    SPA_AR_Z_E        -0.461      0.017    -27.874      0.000
+    EID_AR_Z_E        -0.290      0.028    -10.453      0.000
+    EDI_AR_Z_E        -0.483      0.021    -22.758      0.000
+    ADI_AR_Z_E        -0.261      0.023    -11.218      0.000
+    MOT_S_AR_Z        -0.219      0.017    -13.078      0.000
+    SM_S_AR_Z         -0.146      0.025     -5.828      0.000
+    WRAT_CR_ST        -0.698      0.014    -49.318      0.000
+
+ Intercepts
+    SMRY_PRIME         0.000      0.019      0.000      1.000
+    ABF_AR_Z_E        -0.003      0.012     -0.231      0.817
+    ATT_AR_Z_E         0.034      0.012      2.913      0.004
+    WM_AR_Z_EF         0.005      0.013      0.358      0.721
+    VMEM_AR_Z_         0.000      0.013      0.022      0.983
+    FMEM_AR_Z_        -0.026      0.012     -2.243      0.025
+    SMEM_AR_Z_        -0.018      0.012     -1.525      0.127
+    LAN_AR_Z_E        -0.005      0.012     -0.439      0.661
+    NVR_AR_Z_E        -0.010      0.012     -0.812      0.417
+    SPA_AR_Z_E        -0.004      0.012     -0.316      0.752
+    EID_AR_Z_E        -0.041      0.013     -3.254      0.001
+    EDI_AR_Z_E        -0.039      0.011     -3.353      0.001
+    ADI_AR_Z_E        -0.026      0.012     -2.139      0.032
+    MOT_S_AR_Z         0.003      0.011      0.243      0.808
+    SM_S_AR_Z         -0.008      0.013     -0.655      0.513
+    WRAT_CR_ST         0.000      0.011      0.000      1.000
+
+ Thresholds
+    SMRY_MAN$1         2.479      0.045     54.906      0.000
+    SMRY_DEP$1         1.168      0.017     69.965      0.000
+    SMRY_GAD$1         1.934      0.027     71.738      0.000
+    SMRY_SEP$1         1.627      0.022     75.581      0.000
+    SMRY_PHB$1         0.437      0.013     32.698      0.000
+    SMRY_SOC$1         0.813      0.015     55.704      0.000
+    SMRY_PAN$1         2.224      0.035     63.890      0.000
+    SMRY_AGR$1         1.652      0.022     75.478      0.000
+    SMRY_OCD$1         1.924      0.027     71.950      0.000
+    SMRY_PTD$1         1.248      0.017     72.018      0.000
+    SMRY_PSY$1         1.748      0.023     74.720      0.000
+    SMRY_ADD$1         0.927      0.015     61.180      0.000
+    SMRY_ODD$1         0.530      0.014     38.988      0.000
+    SMRY_CON$1         1.547      0.020     75.644      0.000
+
+ Variances
+    ANXIOUSMIS         1.000      0.000    999.000    999.000
+    PSYCHOSIS          1.000      0.000    999.000    999.000
+    PHOBIAS            1.000      0.000    999.000    999.000
+    EXTERNALIZ         1.000      0.000    999.000    999.000
+    COMPLEX            1.000      0.000    999.000    999.000
+    EXECUTIVE          1.000      0.000    999.000    999.000
+    MEMORY             1.000      0.000    999.000    999.000
+    SOCIAL             1.000      0.000    999.000    999.000
+    MOTOR              1.000      0.000    999.000    999.000
+    P_FACTOR           1.000      0.000    999.000    999.000
+    G_FACTOR           1.000      0.000    999.000    999.000
+    C_FACTOR           1.000      0.000    999.000    999.000
+
+ Residual Variances
+    SMRY_PRIME         0.688      0.188      3.657      0.000
+    ABF_AR_Z_E         0.680      0.011     62.501      0.000
+    ATT_AR_Z_E         0.651      0.009     72.787      0.000
+    WM_AR_Z_EF         0.621      0.009     72.097      0.000
+    VMEM_AR_Z_         0.617      0.009     65.119      0.000
+    FMEM_AR_Z_         0.522      0.012     44.053      0.000
+    SMEM_AR_Z_         0.642      0.014     47.236      0.000
+    LAN_AR_Z_E         0.395      0.013     29.569      0.000
+    NVR_AR_Z_E         0.577      0.014     42.458      0.000
+    SPA_AR_Z_E         0.661      0.010     66.975      0.000
+    EID_AR_Z_E         0.559      0.009     63.287      0.000
+    EDI_AR_Z_E         0.250      0.040      6.199      0.000
+    ADI_AR_Z_E         0.567      0.019     30.602      0.000
+    MOT_S_AR_Z         0.747      0.008     88.350      0.000
+    SM_S_AR_Z          0.606      0.011     53.838      0.000
+    WRAT_CR_ST         0.464      0.023     20.398      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed   Residual
+    Variable        Estimate       S.E.  Est./S.E.    P-Value    Variance
+
+    SMRY_MAN           0.398      0.092      4.317      0.000      0.602
+    SMRY_DEP           0.625      0.027     22.845      0.000      0.375
+    SMRY_GAD           0.621      0.078      7.995      0.000      0.379
+    SMRY_SEP           0.251      0.034      7.306      0.000      0.749
+    SMRY_PHB           0.320      0.049      6.501      0.000      0.680
+    SMRY_SOC           0.389      0.029     13.290      0.000      0.611
+    SMRY_PAN           0.435      0.051      8.604      0.000      0.565
+    SMRY_AGR           0.554      0.038     14.514      0.000      0.446
+    SMRY_OCD           0.472      0.035     13.434      0.000      0.528
+    SMRY_PTD           0.345      0.022     15.586      0.000      0.655
+    SMRY_PSY           0.487      0.120      4.069      0.000      0.513
+    SMRY_ADD           0.275      0.022     12.336      0.000      0.725
+    SMRY_ODD           0.993      0.074     13.344      0.000      0.007
+    SMRY_CON           0.561      0.034     16.550      0.000      0.439
+    SMRY_PRI           0.312      0.188      1.660      0.097
+    ABF_AR_Z           0.320      0.011     29.375      0.000
+    ATT_AR_Z           0.349      0.009     38.963      0.000
+    WM_AR_Z_           0.379      0.009     44.053      0.000
+    VMEM_AR_           0.383      0.009     40.366      0.000
+    FMEM_AR_           0.478      0.012     40.340      0.000
+    SMEM_AR_           0.358      0.014     26.351      0.000
+    LAN_AR_Z           0.605      0.013     45.275      0.000
+    NVR_AR_Z           0.423      0.014     31.159      0.000
+    SPA_AR_Z           0.339      0.010     34.403      0.000
+    EID_AR_Z           0.441      0.009     49.994      0.000
+    EDI_AR_Z           0.750      0.040     18.551      0.000
+    ADI_AR_Z           0.433      0.019     23.372      0.000
+    MOT_S_AR           0.253      0.008     29.971      0.000
+    SM_S_AR_           0.394      0.011     34.961      0.000
+    WRAT_CR_           0.536      0.023     23.522      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.505E-04
+       (ratio of smallest to largest eigenvalue)
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    c:\users\reduc\documents\pnc_cfactor_final.dgm
+
+     Beginning Time:  14:44:37
+        Ending Time:  14:44:39
+       Elapsed Time:  00:00:02
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
